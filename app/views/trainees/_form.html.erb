@@ -1,0 +1,42 @@
+<%= form_for(trainee) do |f| %>
+  <% if trainee.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(trainee.errors.count, "error") %> prohibited this trainee from being saved:</h2>
+
+      <ul>
+      <% trainee.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+  </div>
+
+  <div class="field">
+    <%= f.label :gender %>
+    <%= f.text_field :gender %>
+  </div>
+
+  <div class="field">
+    <%= f.label :age %>
+    <%= f.number_field :age %>
+  </div>
+
+  <div class="field">
+    <%= f.label :distance %>
+    <%= f.number_field :distance %>
+  </div>
+
+  <div class="field">
+    <%= f.label :job_category %>
+    <%= f.text_field :job_category %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

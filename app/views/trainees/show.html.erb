@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @trainee.name %>
+</p>
+
+<p>
+  <strong>Gender:</strong>
+  <%= @trainee.gender %>
+</p>
+
+<p>
+  <strong>Age:</strong>
+  <%= @trainee.age %>
+</p>
+
+<p>
+  <strong>Distance:</strong>
+  <%= @trainee.distance %>
+</p>
+
+<p>
+  <strong>Job category:</strong>
+  <%= @trainee.job_category %>
+</p>
+
+<%= link_to 'Edit', edit_trainee_path(@trainee) %> |
+<%= link_to 'Back', trainees_path %>
