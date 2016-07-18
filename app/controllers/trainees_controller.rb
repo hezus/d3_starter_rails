@@ -5,6 +5,12 @@ class TraineesController < ApplicationController
   # GET /trainees.json
   def index
     @trainees = Trainee.all
+
+    respond_to do |format|
+      format.html
+      format.json { render :json => @trainees.to_json(:except => [:created_at, :updated_at], :include => {:skills => { :except => [:created_at, :updated_at]} }) }
+    end
+
   end
 
   # GET /trainees/1
