@@ -202,7 +202,7 @@ var bar = chart.selectAll("g")
 - We also need to create a projection. Add a scale for x (bar width)
 
 ```
-var x = d3.scale.linear()
+var x = d3.scaleLinear()
     .domain([0, d3.max(data)])
     .range([0, width]);
 ```
