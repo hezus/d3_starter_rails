@@ -145,7 +145,7 @@ Continuing with our dataset of `[4, 8, 15, 16, 23, 42]` we will make a chart in 
 - add a `<svg>` element to the body.
 - give the `<svg>` the attributes width 200 and height 120
 - Add a `<g>` inside the svg. This g will determine the vertical position of the bars
-- To vertically position the `<g>` element, add a `transform` attribute with the value of translation(0,0)
+- To vertically position the `<g>` element, add a `transform` attribute with the value of translate(0,0)
 - Inside the `<g>` element add a `<rect>` with a width attribute of 40 and a height of 19
 - After the `<rect>` element add a `<text>` element to show the value of the bar.
 
