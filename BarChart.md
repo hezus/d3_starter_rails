@@ -34,7 +34,7 @@ This can be done because the methods used on a selector return the selection.
 
 ### Making our first chart
 
-copy the following HTML and open in the browser. 
+copy the following HTML and open in the browser.
 
 ```html
 <!DOCTYPE html>
@@ -77,25 +77,25 @@ Using the following array `var data = [4, 8, 15, 16, 23, 42];` We will create a 
 - Add a `<script></script>` area to the HTML at the bottom of the `<body>`
 - We select the `.chart` div using d3. with `var chart = d3.select(".chart");`
 
-Were going to create a [datajoin](https://bost.ocks.org/mike/join/). Between html elements and our array. A datajoin starts by defining a selection to which the data will be joined. Think of the initial join like the visualisation you would like to see. 
+Were going to create a [datajoin](https://bost.ocks.org/mike/join/). Between html elements and our array. A datajoin starts by defining a selection to which the data will be joined. Think of the initial join like the visualisation you would like to see.
 
 - We want to see some bars that represent our data. This is done by selecting all divs that will be the bars. `var bar = chart.selectAll("div");`
 - Next we join the data to this selection. `var barUpdate = bar.data(data);`
 - To add the missing elements to the HTML we can use the `enter()` method of `data()`. `var barEnter = barUpdate.enter().append("div");`
 - `barEnter` holds the elements of the selectAll that have been added in the enter method. We can set the style of the bars using the style method `barEnter.style("width", "100px")`
 - We can make the width of bar dynamic by using the bound data. To do this we use a function instead of a fixed value. The function will return the value of the bound data time 100. change the setting of the width to 100px to `function(d){ return d*100 + "px" ; }`
-- Check your progress in the browser. 
+- Check your progress in the browser.
 - Lets set the text of the bar to the value of the bound data using the text method. `barEnter.text(function(d) { return d; });`
 
 The final piece of code looks a bit like this:
 
 ```javascript
-d3.select(".chart")
-  .selectAll("div")
-    .data(data)
-  .enter().append("div")
-    .style("width", function(d) { return d * 10 + "px"; })
-    .text(function(d) { return d; });
+var chart = d3.select(".chart");
+var bars = chart.selectAll("div")
+var barUpdate = bars.data(data)
+var barEnter = barUpdate.enter().append("div")
+barEnter.style("width", function(d) { return d * 10 + "px"; })
+barEnter.text(function(d) { return d; });
 ```
 
 ### Domain and Range
@@ -108,7 +108,7 @@ d3 provides scales for easy handling of projections. They take a domain (data) a
 
 lets add a scale
 
-- Add a x linear scale above the selector 
+- Add a x linear scale above the selector
 
 ```
 var x = d3.scale.linear()
@@ -142,7 +142,7 @@ Continuing with our dataset of `[4, 8, 15, 16, 23, 42]` we will make a chart in 
 }
 ```
 
-- add a `<svg>` element to the body. 
+- add a `<svg>` element to the body.
 - give the `<svg>` the attributes width 200 and height 120
 - Add a `<g>` inside the svg. This g will determine the vertical position of the bars
 - To vertically position the `<g>` element, add a `transform` attribute with the value of translation(0,0)
@@ -156,11 +156,11 @@ Continuing with our dataset of `[4, 8, 15, 16, 23, 42]` we will make a chart in 
     <text x="37" y="9.5" dy=".35em">4</text>
   </g>
 </svg>  
-```	
+```
 
-- Check your progress in the browser. 
+- Check your progress in the browser.
 - repeat this to show the other bars in the dataset
- 
+
 ### Now lets do it with a script
 
 - Create a empty page html with a svg element that has class chart
@@ -182,7 +182,7 @@ Continuing with our dataset of `[4, 8, 15, 16, 23, 42]` we will make a chart in 
 - Add a `<script></script>` area to the HTML at the bottom of the `<body>`
 - Add a variable to hold the data `[4, 8, 15, 16, 23, 42]`.
 - Add a variable for width of 600 and one for barHeight of 20
-- Select the `.chart` svg using d3 and set the width and height. 
+- Select the `.chart` svg using d3 and set the width and height.
 
 ```javascript
 var chart = d3.select(".chart")
@@ -215,12 +215,12 @@ bar.append("rect")
     .attr("height", barHeight - 1);
 ```
 
-because `width` can take a integer value, we don't need to specify a function here to append + "px" to the value of `x`. Instead we use the default behaviour wich basically is equivalant too `function(d){return x(d);}` 
-    
+because `width` can take a integer value, we don't need to specify a function here to append + "px" to the value of `x`. Instead we use the default behaviour wich basically is equivalant too `function(d){return x(d);}`
+
 - Check your progress in the browser.    
 - Add a text node to the `bar` variable
- 
-``` 
+
+```
 bar.append("text")
     .attr("x", function(d) { return x(d) - 3; })
     .attr("y", barHeight / 2)
@@ -229,15 +229,3 @@ bar.append("text")
 ```    
 
 - Check your progress in the browser.
-
-
-
-
-
-
-
-
-
-
-
-
