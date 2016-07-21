@@ -87,8 +87,8 @@ bar.append("text")
 var g = donut.selectAll(".arc")
     .data(pie(groupByCategory))
   .enter().append("g")
-    .attr("class", "arc");
-    .on("click", updateBarChart)
+    .attr("class", "arc")
+    .on("click", updateBarChart);
 ```     
 
 this will call the updateBarChart function each time you click the donut
