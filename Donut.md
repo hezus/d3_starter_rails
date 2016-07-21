@@ -71,7 +71,7 @@ Now the donut show some black arcs, lets add some color to that.
 - We start by making a ordinal scale. 
 
 ```javascript
-var color = d3.scale.ordinal()
+var color = d3.scaleOrdinal()
     .range(["#98abc5", "#8a89a6", "#7b6888"])
 ```
     
