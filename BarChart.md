@@ -111,7 +111,7 @@ lets add a scale
 - Add a x linear scale above the selector
 
 ```
-var x = d3.scale.linear()
+var x = d3.scaleLinear()
     .domain([0, d3.max(data)])
     .range([0, 420]);
 ```
