@@ -122,8 +122,8 @@ var dataset = [
       ];
 ```
 
-- This data needs to be grouped to render in the donut and add a amount to each.
-- We can do that using a nest function
+This data needs to be grouped to render in the donut and add a amount to each.
+- Group the data using a nest function. this should be done above the drawing of the donut.
 
 ```javascript
 let groupByCategory =d3.nest()
@@ -131,6 +131,15 @@ let groupByCategory =d3.nest()
     .rollup(function(v) { return v.length; })
     .entries(dataset);
 ```      
+
+- Use the nested data instead of the previous dataset.
+ 
+```
+var g = donut.selectAll(".arc")
+    .data(pie(groupByCategory))
+  .enter().append("g")
+    .attr("class", "arc");
+```
 
 - When using a nest function you can access the category by the key field. Replace the fill function for the path by `return color(d.data.key);`
 
