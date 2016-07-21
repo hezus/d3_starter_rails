@@ -159,7 +159,7 @@ Continuing with our dataset of `[4, 8, 15, 16, 23, 42]` we will make a chart in 
 ```
 
 - Check your progress in the browser.
-- repeat this to show the other bars in the dataset
+- repeat the `<g>` elements to show the other bars in the dataset `[4, 8, 15, 16, 23, 42]`
 
 ### Now lets do it with a script
 
