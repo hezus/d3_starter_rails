@@ -28,7 +28,7 @@ var arc = d3.arc()
     .innerRadius(radius - 70);
 ```
 
-The arc creator will paths for us
+The arc creator will generate paths for us
 
 - Use a pie layout to calculate the angles for the data. The pie layout uses the arc generator to create the projection
 
