@@ -1,0 +1,135 @@
+<script>
+
+var width = 960,
+    height = 500,
+    radius = 250;
+
+var arc = d3.arc()
+    .outerRadius(radius - 10)
+    .innerRadius(radius - 70);
+
+var dataset = [
+			  {category: "Fullstack", gender: "male", age: 25},
+			  {category: "Fullstack", gender: "male", age: 26},
+			  {category: "Fullstack", gender: "male", age: 30},
+			  {category: "Fullstack", gender: "male", age: 31},
+			  {category: "Fullstack", gender: "male", age: 31},
+			  {category: "Fullstack", gender: "male", age: 33},
+			  {category: "Fullstack", gender: "male", age: 35},
+			  {category: "Fullstack", gender: "female", age: 25},
+			  {category: "Fullstack", gender: "female", age: 26},
+			  {category: "Fullstack", gender: "female", age: 31},
+			  {category: "Fullstack", gender: "female", age: 35},
+			  {category: "Fullstack", gender: "female", age: 35},
+			  {category: "Backend", gender: "male", age: 25},
+			  {category: "Backend", gender: "male", age: 25},
+			  {category: "Backend", gender: "male", age: 30},
+			  {category: "Backend", gender: "male", age: 40},
+			  {category: "Backend", gender: "female", age: 25},
+			  {category: "Backend", gender: "female", age: 25},
+			  {category: "Backend", gender: "female", age: 25},
+			  {category: "Backend", gender: "female", age: 30},
+			  {category: "Backend", gender: "female", age: 31},
+			  {category: "Backend", gender: "female", age: 31},
+			  {category: "Backend", gender: "female", age: 33},
+			  {category: "Backend", gender: "female", age: 35},
+			  {category: "Backend", gender: "female", age: 35},
+			  {category: "Frontend", gender: "male", age: 25},
+			  {category: "Frontend", gender: "male", age: 27},
+			  {category: "Frontend", gender: "male", age: 35},
+			  {category: "Frontend", gender: "female", age: 25},
+			  {category: "Frontend", gender: "female", age: 35},
+      ];
+
+
+var pie = d3.pie()
+    .sort(null)
+    .value(function(d) { return d.value; });
+
+var donut = d3.select("body").append("svg")
+    .attr("width", width)
+    .attr("height", height)
+    .attr("class", "donut")
+  .append("g")
+    .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+
+var bars = d3.select("body").append("svg")
+    .attr("width", width)
+    .attr("height", height)
+    .attr("class", "barchart")
+  .append("g")
+    .attr("transform", "translate(" + 200 + "," + 200 + ")");
+
+
+let groupByCategory =d3.nest()
+    .key(function(d) { return d.category; }).sortKeys(d3.ascending)
+    .rollup(function(v) { return v.length; })
+    .entries(dataset);
+
+var g = donut.selectAll(".arc")
+    .data(pie(groupByCategory))
+  .enter().append("g")
+    .attr("class", "arc")
+    .on("click", updateBarChart);
+
+var color = d3.scaleOrdinal()
+    .range(["green", "blue", "red"])
+
+g.append("path")
+    .attr("d", arc)
+    .style("fill", function(d) {
+      return color(d.data.key);
+    });
+
+var barHeight = 100;
+
+function updateBarChart(d, i){
+  let barData = dataset;
+  console.log(d, i)
+  if(d){
+    barData = dataset.filter(function(trainee){
+      return trainee.category === d.data.key;
+    })
+  }
+
+  let groupByGender =d3.nest()
+    .key(function(d) { return d.gender; }).sortKeys(d3.ascending)
+    .rollup(function(v) { return v.length; })
+    .entries(barData);
+
+  bars.selectAll("g").remove()
+
+  var bar = bars.selectAll("g")
+    .data(groupByGender)
+  .enter().append("g")
+    .attr("transform", function(d, i) { return "translate(0," + i * barHeight + ")"; });
+
+  var x = d3.scaleLinear()
+    .domain([0, d3.max(groupByGender, function(d){
+      return d.value;
+    })])
+    .range([0, width/2]);
+
+  bar.append("rect")
+    .attr("width", function(d){
+      return x(d.value)
+    })
+    .attr("height", barHeight - 1);
+
+  bar.append("text")
+    .attr("x", -100)
+    .attr("y", barHeight / 2)
+    .attr("dy", ".35em")
+    .text(function(d) { return d.key; });
+
+  bar.append("text")
+    .attr("x", function(d){
+        return x(d.value);
+      })
+    .attr("y", barHeight / 2)
+    .attr("dy", ".35em")
+    .text(function(d) { return d.value; });
+
+}
+updateBarChart();
+</script>

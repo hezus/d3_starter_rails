@@ -2,11 +2,17 @@
 
 var width = 960,
     height = 500,
-    radius = Math.min(width, height) / 2;
+    radius = 250;
 
 var arc = d3.arc()
     .outerRadius(radius - 10)
     .innerRadius(radius - 70);
+
+var dataset = [
+			  {category: "Fullstack", value: 15},
+	      {category: "Backend", value: 5},
+	      {category: "Frontend", value: 8}
+      ];
 
 var pie = d3.pie()
     .sort(null)
@@ -18,29 +24,19 @@ var svg = d3.select("body").append("svg")
   .append("g")
     .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
 
-d3.json("/trainees.json", function(error, data) {
-  if (error) throw error;
-
-  let groupByDate =d3.nest()
-    .key(function(d) { return d.age; }).sortKeys(d3.ascending)
-    .rollup(function(v) { return v.length; })
-    .entries(data);
-
-  var max = d3.max(groupByDate, function(d) { return +d.value;} );
 
   var g = svg.selectAll(".arc")
-      .data(pie(groupByDate))
+      .data(pie(dataset))
     .enter().append("g")
       .attr("class", "arc");
 
+var color = d3.scaleOrdinal()
+    .range(["green", "blue", "red"])
+
   g.append("path")
       .attr("d", arc)
-      .style("fill", function(d) { return  d3.interpolateYlGn(d.data.value/max); });
-
-  g.append("text")
-      .attr("transform", function(d) { return "translate(" + arc.centroid(d) + ")"; })
-      .attr("dy", ".35em")
-      .text(function(d) { return d.data.key; });
-});
+      .style("fill", function(d) {
+        return color(d.data.category);
+      });
 
 </script>
